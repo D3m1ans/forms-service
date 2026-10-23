@@ -1,0 +1,81 @@
+body {
+    font: 16px/1.5 system-ui, sans-serif;
+    margin: 0;
+    background: #f5f6f8;
+    color: #222;
+}
+
+main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+input, select, textarea, button {
+    font: inherit;
+    padding: 6px 10px;
+}
+
+input[type=text], input[type=email], input[type=number], textarea, select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    text-align: left;
+}
+
+.field, .question {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.field > * {
+    margin: 4px 4px 4px 0;
+}
+
+.field input[data-k=label] {
+    width: 45%;
+}
+
+.field select {
+    width: auto;
+}
+
+.opt {
+    display: block;
+}
+
+.error {
+    color: #c00;
+    font-size: 14px;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.scroll {
+    overflow-x: auto;
+}
+
+.hp {
+    position: absolute;
+    left: -9999px;
+}
