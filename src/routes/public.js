@@ -26,7 +26,7 @@ router.get('/:slug', loadVersion, (req, res) => {
 router.post('/:slug/submit', loadVersion, (req, res) => {
     const fields = JSON.parse(req.version.fields);
     const { answers, sessionId, website } = req.body;
-    if (website) return res.status(201).json({ ok: true }); // honeypot: человек это поле не видит
+    if (website) return res.status(201).json({ ok: true }); 
     const { errors, clean } = validateAnswers(fields, answers);
     const errorIds = Object.keys(errors);
     if (errorIds.length) {
@@ -39,7 +39,6 @@ router.post('/:slug/submit', loadVersion, (req, res) => {
     res.status(201).json({ ok: true });
 });
 
-// События, которые присылает браузер: открытие формы и первый заход в поле
 router.post('/:slug/events', loadVersion, (req, res) => {
     const { sessionId, type, field } = req.body;
     if (!['view', 'focus'].includes(type)) return res.status(400).json({ error: 'Неизвестное событие' });
