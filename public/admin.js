@@ -20,7 +20,7 @@ async function api(path, method = 'GET', body) {
     return data;
 }
 
-// ---------- Список форм ----------
+// Список форм
 async function renderList() {
     const forms = await api('/forms');
     app.innerHTML = `
@@ -52,7 +52,7 @@ async function renderList() {
     };
 }
 
-// ---------- Конструктор ----------
+// Конструкторч
 async function renderEditor(id) {
     const form = await api(`/forms/${id}`);
 
@@ -80,7 +80,6 @@ async function renderEditor(id) {
       <div id="msg"></div>`;
     };
 
-    // Перед сохранением приводим варианты ответа к списку и убираем лишнее
     const cleanFields = () => form.fields.map(({ options, ...f }) => hasOptions(f.type)
         ? { ...f, options: (options || []).map((s) => s.trim()).filter(Boolean) }
         : f);
@@ -97,7 +96,7 @@ async function renderEditor(id) {
         if (k === 'required') f.required = e.target.checked;
         else if (k === 'options') f.options = e.target.value.split('\n');
         else f[k] = e.target.value;
-        if (k === 'type') draw(); // у разных типов разный набор настроек
+        if (k === 'type') draw(); 
     };
 
     app.onclick = async (e) => {
@@ -135,7 +134,7 @@ async function renderEditor(id) {
     draw();
 }
 
-// ---------- Ответы ----------
+// Ответы
 async function renderResponses(id) {
     const { columns, rows } = await api(`/forms/${id}/responses`);
     const show = (v) => (Array.isArray(v) ? v.join(', ') : v ?? '');
@@ -152,7 +151,7 @@ async function renderResponses(id) {
     app.oninput = app.onclick = null;
 }
 
-// ---------- Аналитика ----------
+// Аналитика
 async function renderStats(id) {
     const { views, started, submitted, fields } = await api(`/forms/${id}/stats`);
     const pct = (a, b) => (b ? Math.round((a / b) * 100) + '%' : '—');
@@ -174,9 +173,9 @@ async function renderStats(id) {
     app.oninput = app.onclick = null;
 }
 
-// ---------- Роутинг по hash ----------
+//  Роутинг по hash
 async function route() {
-    const [, page, id, sub] = location.hash.split('/'); // #/forms/3/responses
+    const [, page, id, sub] = location.hash.split('/'); 
     try {
         if (page === 'forms' && sub === 'responses') await renderResponses(id);
         else if (page === 'forms' && sub === 'stats') await renderStats(id);
