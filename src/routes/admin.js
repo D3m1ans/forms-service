@@ -72,7 +72,7 @@ function collectResponses(formId) {
         ORDER BY r.id DESC
     `).all(formId);
 
-    const columns = new Map(); // id поля -> подпись (побеждает самая новая версия)
+    const columns = new Map(); 
     for (const r of [...rows].reverse()) {
         for (const f of JSON.parse(r.fields)) columns.set(f.id, f.label);
     }
