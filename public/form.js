@@ -26,7 +26,7 @@ function control(f) {
         case 'checkbox':
             return f.options.map((o) =>
                 `<label class="opt"><input type="${f.type}" name="${name}" value="${esc(o)}"> ${esc(o)}</label>`).join('');
-        default: // text, email, number
+        default:
             return `<input type="${f.type}" name="${name}">`;
     }
 }
@@ -64,13 +64,13 @@ async function main() {
         ]));
     };
 
-    // Черновик: сохраняем при каждом изменении, восстанавливаем при открытии
+   
     const draftKey = `draft:${slug}`;
     const bar = document.getElementById('bar');
     const refreshBar = () => { bar.value = Object.values(collect()).filter((v) => v.length).length; };
 
     let saved = {};
-    try { saved = JSON.parse(localStorage.getItem(draftKey) || '{}'); } catch { /* битый черновик игнорируем */ }
+    try { saved = JSON.parse(localStorage.getItem(draftKey) || '{}'); } catch { }
     for (const f of schema.fields) {
         for (const el of form.querySelectorAll(`[name="${f.id}"]`)) {
             if (el.type === 'checkbox' || el.type === 'radio') el.checked = [].concat(saved[f.id] ?? []).includes(el.value);
@@ -98,7 +98,7 @@ async function main() {
     form.onsubmit = async (e) => {
         e.preventDefault();
         const button = form.querySelector('button');
-        button.disabled = true; // защита от двойной отправки
+        button.disabled = true; 
         form.querySelectorAll('.error').forEach((el) => { el.textContent = ''; });
 
         const res = await fetch(`/api/public/${slug}/submit`, {
